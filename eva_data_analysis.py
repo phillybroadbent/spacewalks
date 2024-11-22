@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 import csv
 
 # https://data.nasa.gov/resource/eva.json (with modifications)
-data_f = open('./eva-data.json', 'r')
-data_t = open('./eva-data.csv','w')
-g_file = './cumulative_eva_graph.png'
+input_file = open('./eva-data.json', 'r')
+ouput_file = open('./eva-data.csv','w')
+graph_file = './cumulative_eva_graph.png'
 
 fieldnames = ("EVA #", "Country", "Crew    ", "Vehicle", "Date", "Duration", "Purpose")
 
