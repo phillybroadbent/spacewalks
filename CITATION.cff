@@ -1,0 +1,16 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Spacewalks
+message: >-
+  Spacewalks is a Python analysis tool for researchers to
+  generate visualisations and statistical summaries of
+  NASA's extravehicular activity datasets.
+type: software
+authors:
+  - given-names: Philippa
+    family-names: Broadbent
+    email: phillybroadbent@gmail.com
+    affiliation: University of Southampton
+    orcid: 'https://orcid.org/0000-0002-2405-3698'
