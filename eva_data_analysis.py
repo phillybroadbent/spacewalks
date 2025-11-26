@@ -53,16 +53,27 @@ def plot_cumulative_time_in_space(df, graph_file):
     """
     print(f"Plotting cumulative spacewalk duration and saving to {graph_file}")
     # Create data necessary for plotting cumulative time in space over the years
-    df['duration_hours'] = df['duration'].str.split(":").apply(lambda x: int(x[0]) + int(x[1])/60)
+    df = add_duration_hours(df)
     df['cumulative_time'] = df['duration_hours'].cumsum()
 
-    # create a plot of year vs total time in space
     plt.plot(df['date'], df['cumulative_time'], 'ko-')
     plt.xlabel('Year')
     plt.ylabel('Total time spent in space to date (hours)')
     plt.tight_layout()
     plt.savefig(graph_file)
     plt.show() 
+    
+def text_to_duration(duration):
+    hours, minutes = duration.split(":")
+    duration_hours = int(hours) + int(minutes)/6  # there is an intentional bug here
+    return duration_hours
+
+def add_duration_hours(df):
+    df_copy = df.copy()
+    df_copy["duration_hours"] = df_copy["duration"].apply(
+        text_to_duration
+    )
+    return df_copy
 
 
 # Data source: https://data.nasa.gov/resource/eva.json (with modifications)
