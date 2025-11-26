@@ -1,5 +1,22 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import sys
+
+def main(input_file, output_file, graph_file):
+    print("--START--")
+
+    # Read the data from JSON file
+    eva_data = read_json_to_dataframe(input_file)
+
+    # Convert and export the data to csv file
+    write_dataframe_to_csv(eva_data, output_file)
+
+    # Sort dataframe by date so that it's ready to be plotted with date on the x axis
+    eva_data.sort_values('date', inplace=True)
+
+    plot_cumulative_time_in_space(eva_data, graph_file)
+
+    print("--END--")
 
 def read_json_to_dataframe(input_file):
     """
@@ -75,24 +92,20 @@ def add_duration_hours(df):
     )
     return df_copy
 
-
-# Data source: https://data.nasa.gov/resource/eva.json (with modifications)
-input_file = open('./eva-data.json', 'r', encoding='ascii')
-output_file = open('./eva-data.csv', 'w', encoding='utf-8')
-graph_file = './cumulative_eva_graph.png' # assign file to output graph into
-
-print("--START--")
-
-# Read the data from JSON file
-eva_data = read_json_to_dataframe(input_file)
-
-# Convert and export the data to csv file
-write_dataframe_to_csv(eva_data, output_file)
-
-# Sort dataframe by date so that it's ready to be plotted with date on the x axis
-eva_data.sort_values('date', inplace=True)
-
-plot_cumulative_time_in_space(eva_data, graph_file)
+if __name__ == "__main__":
+    
+    if len(sys.argv) < 3:
+        # Data source: https://data.nasa.gov/resource/eva.json (with modifications)
+        input_file = open('./eva-data.json', 'r', encoding='ascii')
+        output_file = open('./eva-data.csv', 'w', encoding='utf-8')
+        print("Using default input and output filenames")
+    else:
+        input_file = sys.argv[1]
+        output_file = sys.argv[2]
+        print("Using custom input and output filenames")
+        
+    graph_file = './cumulative_eva_graph.png' # assign file to output graph into
+    
+    main(input_file, output_file, graph_file)
 
 
-print("--END--")
