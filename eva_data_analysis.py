@@ -94,17 +94,18 @@ def add_duration_hours(df):
 
 if __name__ == "__main__":
     
+    # to run the script with custom filenames, include command line arguments for the input and output file
     if len(sys.argv) < 3:
         # Data source: https://data.nasa.gov/resource/eva.json (with modifications)
-        input_file = open('./eva-data.json', 'r', encoding='ascii')
-        output_file = open('./eva-data.csv', 'w', encoding='utf-8')
+        input_file = open('data/eva-data.json', 'r', encoding='ascii')
+        output_file = open('results/eva-data.csv', 'w', encoding='utf-8')
         print("Using default input and output filenames")
     else:
         input_file = sys.argv[1]
         output_file = sys.argv[2]
         print("Using custom input and output filenames")
         
-    graph_file = './cumulative_eva_graph.png' # assign file to output graph into
+    graph_file = 'results/cumulative_eva_graph.png' # assign file to output graph into
     
     main(input_file, output_file, graph_file)
 
